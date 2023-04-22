@@ -1,4 +1,4 @@
-package Scrabble.Model;
+package Scrabble.searchLogic;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

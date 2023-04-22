@@ -1,4 +1,4 @@
-package Scrabble.Model;
+package Scrabble.searchLogic;
 
 import java.util.Comparator;
 import java.util.HashMap;

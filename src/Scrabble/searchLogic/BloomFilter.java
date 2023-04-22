@@ -1,4 +1,4 @@
-package Scrabble.Model;
+package Scrabble.searchLogic;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

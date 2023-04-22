@@ -1,6 +1,6 @@
 package Scrabble.Server;
 
-import Scrabble.Model.Dictionary;
+import Scrabble.searchLogic.Dictionary;
 
 import java.util.HashMap;
 import java.util.Map;
