@@ -1,4 +1,4 @@
-package Scrabble.Server;
+package Scrabble.server;
 
 import Scrabble.searchLogic.Dictionary;
 

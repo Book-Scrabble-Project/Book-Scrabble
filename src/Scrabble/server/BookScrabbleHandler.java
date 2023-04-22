@@ -1,4 +1,4 @@
-package Scrabble.Server;
+package Scrabble.server;
 
 import java.io.InputStream;
 import java.io.OutputStream;
