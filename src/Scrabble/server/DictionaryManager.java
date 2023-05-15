@@ -7,12 +7,19 @@ import java.util.Map;
 
 public class DictionaryManager {
     private static DictionaryManager dm = null;
-    private Map<String, Dictionary> dictionaryMap;
     int size;
+    private final Map<String, Dictionary> dictionaryMap;
 
     private DictionaryManager() {
         dictionaryMap = new HashMap<>();
         this.size = 0;
+    }
+
+    public static DictionaryManager get() {
+        if (dm == null) {
+            dm = new DictionaryManager();
+        }
+        return dm;
     }
 
     public boolean query(String... args) {
@@ -49,12 +56,5 @@ public class DictionaryManager {
 
     public int getSize() {
         return size;
-    }
-
-    public static DictionaryManager get() {
-        if (dm == null) {
-            dm = new DictionaryManager();
-        }
-        return dm;
     }
 }
