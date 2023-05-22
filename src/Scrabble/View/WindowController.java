@@ -1,4 +1,4 @@
-package Scrabble.view;
+package Scrabble.View;
 
 import java.util.Observable;
 

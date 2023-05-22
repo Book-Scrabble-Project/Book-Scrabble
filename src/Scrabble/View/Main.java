@@ -1,4 +1,4 @@
-package Scrabble.view;
+package Scrabble.View;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
