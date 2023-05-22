@@ -1,4 +1,4 @@
-package Scrabble.components;
+package Scrabble.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
