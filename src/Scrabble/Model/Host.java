@@ -2,8 +2,8 @@ package Scrabble.Model;
 
 import java.util.Observable;
 
-public class Model extends Observable {
-    public Model() {
+public class Host extends Observable {
+    public Host() {
     }
 
 }
