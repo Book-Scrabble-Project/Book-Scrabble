@@ -1,4 +1,4 @@
-package Scrabble.model;
+package Scrabble.Model;
 
 import java.util.Observable;
 

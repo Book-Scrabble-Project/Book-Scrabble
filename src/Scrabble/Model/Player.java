@@ -1,4 +1,4 @@
-package Scrabble.model;
+package Scrabble.Model;
 
 public class Player {
     private String name;
@@ -98,7 +98,5 @@ public class Player {
             tiles[i] = temp;
         }
     }
-
-
 
 }
