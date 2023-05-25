@@ -63,6 +63,18 @@ public class Player {
         }
     }
 
+    public void completeTiles() {
+        int bagSize = Tile.Bag.getBag().size();
+        int currentTileSize = this.getTiles().length;
+        if (bagSize == 0) {
+            return;
+        }
+        while (currentTileSize < 7) {
+            this.addTile(Tile.Bag.getBag().getRand());
+            currentTileSize++;
+        }
+    }
+
     public void removeTile(int index) {
         tiles[index] = null;
     }
