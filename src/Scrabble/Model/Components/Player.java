@@ -4,13 +4,20 @@ public class Player {
     private String name;
     private int score;
     private Tile[] tiles;
-    private final int id;
 
-    public Player(String name, int id) {
+
+    private int id;
+
+    public Player() {
         this.name = "Default Player";
         this.score = 0;
         this.tiles = new Tile[7];
-        this.id = id;
+    }
+
+    public Player(String name) {
+        this.name = name;
+        this.score = 0;
+        this.tiles = new Tile[7];
     }
 
     public String getName() {
@@ -28,6 +35,8 @@ public class Player {
     public Tile[] getTiles() {
         return tiles;
     }
+
+    public void setId(int id) { this.id = id; }
 
     public void setScore(int score) {
         this.score = score;
