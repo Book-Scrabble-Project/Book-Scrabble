@@ -17,6 +17,8 @@ public class HostHandler implements ClientHandler {
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
             in = new Scanner(inFromclient);
             out = new PrintWriter(outToClient);
+            String inputMessage = in.next();
+
 
     }
     public void handleRequest(){

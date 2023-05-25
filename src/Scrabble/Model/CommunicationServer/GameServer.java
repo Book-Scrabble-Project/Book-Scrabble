@@ -10,6 +10,7 @@ import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameServer {
     private Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
@@ -34,28 +35,19 @@ public class GameServer {
     private void runServer() throws Exception {
         ServerSocket server = new ServerSocket(port);
         server.setSoTimeout(1000);
-
         while (!stopServer) {
             try {
                 Socket aClient = server.accept();
                 String guestID = UUID.randomUUID().toString().substring(0, 6); //Generate an unique ID to the Guest.
                 guestsMapIDtoSocket.put(guestID, aClient);
-                try {
                     try {
                         clientHandler.handleClient((aClient.getInputStream()), (aClient.getOutputStream()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } catch (SocketTimeoutException e) {
+                } catch (SocketTimeoutException e) {
                 e.printStackTrace();
             }
-        }
-        if (guestsMapIDtoSocket.isEmpty()) {
-            clientHandler.close();
-            server.close();
         }
     }
 

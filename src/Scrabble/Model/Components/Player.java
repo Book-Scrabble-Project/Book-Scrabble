@@ -1,24 +1,43 @@
 package Scrabble.Model.Components;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Player {
     private String name;
     private int score;
     private List<Tile> tiles;
     private int id;
+    private char drawnTile;
+    private int turnIndex;
 
     public Player() {
-        this.name = "Default";
-        this.score = 0;
-        this.tiles = new ArrayList<>();
-        this.id = 0;
+        setName("Guest");
+        setScore(0);
+        setTiles(new ArrayList<>());
+        setId(0);
+        setDrawnTile();
+    }
+    public int getTurnIndex() {
+        return turnIndex;
+    }
+
+    public void setTurnIndex(int turnIndex) {
+        this.turnIndex = turnIndex;
+    }
+    public char getDrawnTile() {
+        // The DrawnTile char is a draw before the game to decide the order of the play.
+        return drawnTile;
+    }
+
+    public void setDrawnTile() {
+        // Taking a random Tile
+        Random rand = new Random();
+        int value = rand.nextInt(26) + 'A';
+        this.drawnTile = (char) value;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setId(int id) {
@@ -59,18 +78,6 @@ public class Player {
 
     public void removeTile(Tile tile) {
         tiles.remove(tile);
-    }
-
-    public void completeTiles() {
-        int bagSize = Tile.Bag.getBag().size();
-        int currentTileSize = tiles.size();
-        if (bagSize == 0) {
-            return;
-        }
-        while (currentTileSize < 7) {
-            tiles.add(Tile.Bag.getBag().getRand());
-            currentTileSize++;
-        }
     }
 
     public void removeTile(int index) {

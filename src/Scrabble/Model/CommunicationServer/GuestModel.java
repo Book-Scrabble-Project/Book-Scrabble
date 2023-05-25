@@ -3,6 +3,7 @@ package Scrabble.Model.CommunicationServer;
 import Scrabble.Model.Components.Board;
 import Scrabble.Model.Components.Player;
 import Scrabble.Model.Components.Tile;
+import Scrabble.Model.Components.Word;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class GuestModel implements Model{
     int score;
     // game board
     Board board;
+
     GuestHandler guestHandler;
-    private static  GuestModel guestModelInstance = null;
 
     /**
      * The GuestModel function is a constructor that initializes the board and players variables.
@@ -24,20 +25,10 @@ public class GuestModel implements Model{
         score = 0;
     }
 
-    /**
-     * The getModel function is a static function that returns the singleton instance of the GuestModel class.
-     * This allows for only one instance of this model to be created, and it can be accessed from anywhere in the program.
-     * @return The singleton instance of the GuestModel class
-     */
-    public static GuestModel getModel() {
-        if (guestModelInstance == null) {
-            guestModelInstance = new GuestModel();
-        }
-        return guestModelInstance;
+    public String tryPlaceWord(Word word){
+        String outputMessage = "tryPlaceWord" + ":" + player.getId() + Converter.wordToString(word);
+        return outputMessage;
     }
-
-
-    //get Player
 
     /**
      * The getPlayer function returns the current player.
@@ -50,12 +41,6 @@ public class GuestModel implements Model{
     public Board getBoard() {
         return board;
     }
-
-    @Override
-    public void setPlayer(String name) {
-        player.setName(name);
-    }
-
 
     @Override
     public int getScore(Player player) {

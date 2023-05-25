@@ -3,6 +3,7 @@ package Scrabble.Model.CommunicationServer;
 import Scrabble.Model.Components.Board;
 import Scrabble.Model.Components.Player;
 import Scrabble.Model.Components.Tile;
+import Scrabble.Model.Components.Word;
 
 import java.util.List;
 
@@ -12,10 +13,6 @@ public interface Model {
      * @return A 2d array of tile objects
      */
     Board getBoard();
-
-
-    void setPlayer(String name);
-
 
     /**
      * The getScore function gets the score for a player.
