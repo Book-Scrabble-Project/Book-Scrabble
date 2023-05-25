@@ -24,6 +24,8 @@ public class HostModel implements Model{
     private int currentPlayerID;
 
 
+
+
     public HostModel(int port) throws IOException {
         board = Board.getBoard();
         bag = Tile.Bag.getBag();
