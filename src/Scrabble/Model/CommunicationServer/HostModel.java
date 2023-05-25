@@ -37,4 +37,23 @@ public class HostModel implements Model{
     }
 
 
+    @Override
+    public Board getBoard() {
+        return null;
+    }
+
+    @Override
+    public void setPlayer(String name) {
+
+    }
+
+    @Override
+    public int getScore(Player player) {
+        return 0;
+    }
+
+    @Override
+    public List<Tile> getHand(Player player) {
+        return null;
+    }
 }
