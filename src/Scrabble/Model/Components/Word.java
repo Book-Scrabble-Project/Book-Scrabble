@@ -1,4 +1,4 @@
-package Scrabble.Model;
+package Scrabble.Model.Components;
 
 import java.util.Arrays;
 import java.util.Objects;

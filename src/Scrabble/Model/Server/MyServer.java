@@ -1,4 +1,4 @@
-package Scrabble.server;
+package Scrabble.Model.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -1,26 +1,21 @@
-package Scrabble.Model;
+package Scrabble.Model.CommunicationServer;
 
-import Scrabble.server.ClientHandler;
+import Scrabble.Model.Server.ClientHandler;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.Scanner;
 
 public class HostHandler implements ClientHandler {
-    private final Socket client;
     private Scanner in;
     private PrintWriter out;
-
-    public HostHandler(Socket client) {
-        this.client = client;
+    public HostHandler() {
     }
-
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
-        in = new Scanner(inFromclient);
-        out = new PrintWriter(outToClient);
+            in = new Scanner(inFromclient);
+            out = new PrintWriter(outToClient);
 
     }
     public void handleRequest(){

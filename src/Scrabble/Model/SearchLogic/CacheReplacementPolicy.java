@@ -1,4 +1,4 @@
-package Scrabble.searchLogic;
+package Scrabble.Model.SearchLogic;
 
 public interface CacheReplacementPolicy {
     void add(String word);
