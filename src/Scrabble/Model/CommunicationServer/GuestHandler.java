@@ -9,6 +9,7 @@ public class GuestHandler implements ClientHandler {
     @Override
     public void handleClient(InputStream inFromclient, OutputStream outToClient) {
 
+
     }
 
     @Override

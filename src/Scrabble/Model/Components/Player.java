@@ -1,20 +1,28 @@
 package Scrabble.Model.Components;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Player {
     private String name;
     private int score;
-    private Tile[] tiles;
-    private final int id;
+    private List<Tile> tiles;
+    private int id;
 
-    public Player(String name, int id) {
-        this.name = "Default Player";
+    public Player() {
+        this.name = "Default";
         this.score = 0;
-        this.tiles = new Tile[7];
-        this.id = id;
+        this.tiles = new ArrayList<>();
+        this.id = 0;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -25,7 +33,7 @@ public class Player {
         return score;
     }
 
-    public Tile[] getTiles() {
+    public List<Tile> getTiles() {
         return tiles;
     }
 
@@ -33,7 +41,7 @@ public class Player {
         this.score = score;
     }
 
-    public void setTiles(Tile[] tiles) {
+    public void setTiles(List<Tile> tiles) {
         this.tiles = tiles;
     }
 
@@ -46,69 +54,72 @@ public class Player {
     }
 
     public void addTile(Tile tile) {
-        for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i] == null) {
-                tiles[i] = tile;
-                break;
-            }
-        }
+        tiles.add(tile);
     }
 
     public void removeTile(Tile tile) {
-        for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i] == tile) {
-                tiles[i] = null;
-                break;
-            }
-        }
+        tiles.remove(tile);
     }
 
     public void completeTiles() {
         int bagSize = Tile.Bag.getBag().size();
-        int currentTileSize = this.getTiles().length;
+        int currentTileSize = tiles.size();
         if (bagSize == 0) {
             return;
         }
         while (currentTileSize < 7) {
-            this.addTile(Tile.Bag.getBag().getRand());
+            tiles.add(Tile.Bag.getBag().getRand());
             currentTileSize++;
         }
     }
 
     public void removeTile(int index) {
-        tiles[index] = null;
+        tiles.remove(index);
     }
 
-    public void removeTiles(Tile[] tiles) {
-        for (Tile tile : tiles) {
-            removeTile(tile);
-        }
+    public void removeTiles(List<Tile> tiles) {
+        this.tiles.removeAll(tiles);
     }
 
     public void removeTiles(int[] indexes) {
-        for (int index : indexes) {
-            removeTile(index);
+        for (int i = indexes.length - 1; i >= 0; i--) {
+            removeTile(indexes[i]);
         }
     }
 
-    public void addTiles(Tile[] tiles) {
-        for (Tile tile : tiles) {
-            addTile(tile);
-        }
+    public void addTiles(List<Tile> tiles) {
+        this.tiles.addAll(tiles);
     }
 
-    public void addTiles(int[] indexes, Tile[] tiles) {
+    public void addTiles(int[] indexes, List<Tile> tiles) {
         for (int i = 0; i < indexes.length; i++) {
-            this.tiles[indexes[i]] = tiles[i];
+            this.tiles.set(indexes[i], tiles.get(i));
         }
     }
 
-    public void swapTiles(int[] indexes, Tile[] tiles) {
+    public void swapTiles(int[] indexes, List<Tile> tiles) {
         for (int i = 0; i < indexes.length; i++) {
-            Tile temp = this.tiles[indexes[i]];
-            this.tiles[indexes[i]] = tiles[i];
-            tiles[i] = temp;
+            Tile temp = this.tiles.get(indexes[i]);
+            this.tiles.set(indexes[i], tiles.get(i));
+            tiles.set(i, temp);
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Player player = (Player) obj;
+        return score == player.score && id == player.id && Objects.equals(name, player.name) && Objects.equals(tiles, player.tiles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, score, tiles, id);
+    }
 }
+

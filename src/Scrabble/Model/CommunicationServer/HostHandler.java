@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class HostHandler implements ClientHandler {
     private Scanner in;
     private PrintWriter out;
+
     public HostHandler() {
     }
     @Override
@@ -19,6 +20,7 @@ public class HostHandler implements ClientHandler {
 
     }
     public void handleRequest(){
+
 
     }
     public void handleResponse(){
