@@ -14,8 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GameServer {
-    ExecutorService executorService;
-    Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
+    private Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
     private int port;
     private ClientHandler clientHandler;
     private volatile boolean stopServer;
@@ -24,7 +23,6 @@ public class GameServer {
         this.port = port;
         this.clientHandler = clientHandler;
         this.stopServer = false;
-        this.executorService = Executors.newFixedThreadPool(3);
     }
 
     public void stopServer() {
