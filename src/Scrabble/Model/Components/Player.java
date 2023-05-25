@@ -1,4 +1,4 @@
-package Scrabble.Model;
+package Scrabble.Model.Components;
 
 public class Player {
     private String name;
@@ -7,7 +7,7 @@ public class Player {
     private final int id;
 
     public Player(String name, int id) {
-        this.name = name;
+        this.name = "Default Player";
         this.score = 0;
         this.tiles = new Tile[7];
         this.id = id;
@@ -60,6 +60,18 @@ public class Player {
                 tiles[i] = null;
                 break;
             }
+        }
+    }
+
+    public void completeTiles() {
+        int bagSize = Tile.Bag.getBag().size();
+        int currentTileSize = this.getTiles().length;
+        if (bagSize == 0) {
+            return;
+        }
+        while (currentTileSize < 7) {
+            this.addTile(Tile.Bag.getBag().getRand());
+            currentTileSize++;
         }
     }
 
