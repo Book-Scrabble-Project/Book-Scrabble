@@ -6,6 +6,8 @@ import Scrabble.Model.CommunicationServer.Converter;
 import Scrabble.Model.Components.Tile;
 import Scrabble.Model.Components.Word;
 
+import java.util.Random;
+
 public class ConverterTest {
 
     @Test
@@ -50,5 +52,33 @@ public class ConverterTest {
         Word actual = Converter.stringToWord(test);
         Assertions.assertEquals(expected,actual);
     }
+
+    @Test
+    public void testEndToEndTileArrayToString(){
+        char[] LETTERS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
+        int MIN_SCORE = 1;
+        int MAX_SCORE = 10;
+        Tile[][] actualTiles = new Tile[15][15];
+        Random random = new Random();
+
+        for (int i = 0; i < actualTiles.length; i++) {
+            for (int j = 0; j < actualTiles[i].length; j++) {
+                char randomLetter = LETTERS[random.nextInt(LETTERS.length)];
+                int randomScore = random.nextInt(MAX_SCORE - MIN_SCORE + 1) + MIN_SCORE;
+                actualTiles[i][j] = new Tile(randomLetter, randomScore);
+            }
+        }
+        String test = Converter.TileArrayToString(actualTiles);
+        Tile[][] expected = Converter.stringToTileArray(test);
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if(expected[i][j].score != actualTiles[i][j].score || expected[i][j].letter != actualTiles[i][j].letter){
+                    System.out.println("Test Failed!");
+                }
+            }
+        }
+        System.out.println("Test Success!");
+    }
+
 }
 

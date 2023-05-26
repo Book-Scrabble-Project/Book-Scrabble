@@ -1,6 +1,5 @@
 package Scrabble.Model.Components;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;

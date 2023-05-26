@@ -9,8 +9,8 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameServer {
     private Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
@@ -40,12 +40,12 @@ public class GameServer {
                 Socket aClient = server.accept();
                 String guestID = UUID.randomUUID().toString().substring(0, 6); //Generate an unique ID to the Guest.
                 guestsMapIDtoSocket.put(guestID, aClient);
-                    try {
-                        clientHandler.handleClient((aClient.getInputStream()), (aClient.getOutputStream()));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                } catch (SocketTimeoutException e) {
+                try {
+                    clientHandler.handleClient((aClient.getInputStream()), (aClient.getOutputStream()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } catch (SocketTimeoutException e) {
                 e.printStackTrace();
             }
         }
@@ -87,6 +87,37 @@ public class GameServer {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public boolean communicateBSServer(String ip, int port, String queryOrChallenge, String... words) {
+        String template;
+        if (queryOrChallenge.equals("query")) {
+            template = "Q,";
+        } else {
+            template = "C,";
+        }
+        StringBuilder message = new StringBuilder(template).append(",");
+        for (int i = 0; i < words.length; i++) {
+            if (i == words.length - 1) {
+                message.append(words[i]);
+            } else {
+                message.append(words[i]).append(",");
+            }
+        }
+        try {
+            Socket socket = new Socket(ip, port);
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            Scanner in = new Scanner(socket.getInputStream());
+            out.println(message.toString());
+            out.flush();
+            String res = in.next();
+            if (res.equals("true"))
+                return true;
+            else
+                return false;
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 

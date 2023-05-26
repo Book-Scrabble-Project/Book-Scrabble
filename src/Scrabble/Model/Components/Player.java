@@ -1,12 +1,16 @@
 package Scrabble.Model.Components;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class Player {
+
+    private String guestID;
     private String name;
     private int score;
     private List<Tile> tiles;
-    private int id;
     private char drawnTile;
     private int turnIndex;
 
@@ -14,9 +18,9 @@ public class Player {
         setName("Guest");
         setScore(0);
         setTiles(new ArrayList<>());
-        setId(0);
         setDrawnTile();
     }
+
     public int getTurnIndex() {
         return turnIndex;
     }
@@ -24,6 +28,7 @@ public class Player {
     public void setTurnIndex(int turnIndex) {
         this.turnIndex = turnIndex;
     }
+
     public char getDrawnTile() {
         // The DrawnTile char is a draw before the game to decide the order of the play.
         return drawnTile;
@@ -36,16 +41,16 @@ public class Player {
         this.drawnTile = (char) value;
     }
 
+    public String getGuestID() {
+        return guestID;
+    }
+
+    public void setGuestID(String guestID) {
+        this.guestID = guestID;
+    }
+
     public String getName() {
         return this.name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getScore() {
@@ -121,12 +126,12 @@ public class Player {
             return false;
         }
         Player player = (Player) obj;
-        return score == player.score && id == player.id && Objects.equals(name, player.name) && Objects.equals(tiles, player.tiles);
+        return score == player.score && guestID == player.guestID && Objects.equals(name, player.name) && Objects.equals(tiles, player.tiles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, score, tiles, id);
+        return Objects.hash(name, score, tiles, guestID);
     }
 }
 
