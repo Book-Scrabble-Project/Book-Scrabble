@@ -9,8 +9,8 @@ import java.util.Observable;
 import java.util.Scanner;
 
 public class HostHandler extends Observable implements ClientHandler {
-    private Scanner in;
-    private PrintWriter out;
+    public Scanner in;
+    public PrintWriter out;
     private boolean gameStop;
 
     public HostHandler() {

@@ -20,7 +20,8 @@ public class HostModel implements Model {
     private List<Player> players;
     private HostHandler hostHandler;
     private MyServer myServer;
-    private int currentPlayerTurnIndex;
+
+    public int currentPlayerTurnIndex;
     private String bsIP;
     private int bsPort;
     private final int PORT_NUMBER = 5124;
@@ -62,8 +63,7 @@ public class HostModel implements Model {
     public void dealTilesToFullHand(Player p) {
         //keep the player with 7 tiles.
         int bagSize = bag.size();
-        int playerTileSize = p.getTiles().size();
-        while (playerTileSize < 7 && bagSize > 0) {
+        while (p.getTiles().size() < 7 && bagSize > 0) {
             p.addTile(bag.getRand());
         }
     }
@@ -143,6 +143,7 @@ public class HostModel implements Model {
     public void setTurnIndexToNextPlayer(int currentPlayerTurnIndex) {
         this.currentPlayerTurnIndex = (currentPlayerTurnIndex + 1) % players.size();
     }
+
 
     @Override
     public Tile[][] getBoard() {

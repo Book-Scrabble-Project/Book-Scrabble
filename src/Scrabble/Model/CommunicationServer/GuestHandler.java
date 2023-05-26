@@ -1,6 +1,8 @@
 package Scrabble.Model.CommunicationServer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Observable;
@@ -13,11 +15,11 @@ public class GuestHandler extends Observable {
     private Scanner in;
     private PrintWriter out;
 
-    public GuestHandler(String guestID, Socket socket) {
+    public GuestHandler(String guestID, InputStream inFromclient, OutputStream outToClient) {
         this.guestID = guestID;
         try {
-            in = new Scanner(socket.getInputStream());
-            out = new PrintWriter(socket.getOutputStream());
+            in = new Scanner(inFromclient);
+            out = new PrintWriter(outToClient);
             while (connectionAlive) {
                 String message = getMessageFromHost();
                 if (message != null) {
@@ -26,7 +28,7 @@ public class GuestHandler extends Observable {
                     out.flush();
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException();
         }
     }
@@ -35,11 +37,11 @@ public class GuestHandler extends Observable {
         String[] elements = message.split(":");
         switch (elements[0]) {
 
-            case ("queryResponse"):
+            case ("query"):
                 query(elements[1], elements[2]);
                 break;
 
-            case ("challengeResponse"):
+            case ("challenge"):
                 challenge(elements[1], elements[2]);
                 break;
 
@@ -59,22 +61,22 @@ public class GuestHandler extends Observable {
     }
 
     public void query(String response, String word) {
-        hasChanged();
+        setChanged();
         notifyObservers("query" + ":" + response + ":" + word);
     }
 
     public void challenge(String response, String word) {
-        hasChanged();
+        setChanged();
         notifyObservers("challenge" + ":" + response + ":" + word);
     }
 
     public void setScore(String score) {
-        hasChanged();
+        setChanged();
         notifyObservers("score" + ":" + score);
     }
 
     public void isWinner(String winner) {
-        hasChanged();
+        setChanged();
         notifyObservers("winner" + ":" + winner);
         close();
     }

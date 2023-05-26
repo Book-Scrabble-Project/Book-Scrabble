@@ -5,6 +5,8 @@ import Scrabble.Model.Components.Tile;
 import Scrabble.Model.Components.Word;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 import java.util.Observable;
@@ -12,20 +14,28 @@ import java.util.Observer;
 
 public class GuestModel implements Model, Observer {
     //local variables
-    Player player;
-    Tile[][] currBoard;
-    Socket socket;
-    GuestHandler guestHandler;
+    public Player player;
+    public Tile[][] currBoard;
+    public Socket socket;
+    public GuestHandler guestHandler;
     boolean challengeChoice;
+
+    public InputStream inputStream; //for testing
+    public OutputStream outputStream; //for testing
 
     /**
      * The GuestModel function is a constructor that initializes the board and players variables.
      */
-    private GuestModel(String ip, int port) {
+    public GuestModel(String ip, int port) {
         currBoard = new Tile[15][15];
         player = new Player();
         setConnectionToServer(ip, port);
-        guestHandler = new GuestHandler(this.player.getGuestID(), socket);
+        try {
+         //   guestHandler = new GuestHandler(this.player.getGuestID(), socket.getInputStream(), socket.getOutputStream());
+                guestHandler = new GuestHandler(this.player.getGuestID(),inputStream,outputStream); //for testing
+        } catch (Exception e){
+            throw new RuntimeException();
+        }
         guestHandler.addObserver(this);
     }
 

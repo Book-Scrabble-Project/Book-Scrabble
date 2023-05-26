@@ -13,7 +13,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class GameServer {
-    private Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
+    public Map<String, Socket> guestsMapIDtoSocket = new HashMap<>();
     private int port;
     private ClientHandler clientHandler;
     private volatile boolean stopServer;
