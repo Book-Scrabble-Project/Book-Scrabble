@@ -12,7 +12,7 @@ public class GuestModel implements Model{
     Player player;
     int score;
     // game board
-    Board board;
+    Tile[][] currBoard;
 
     GuestHandler guestHandler;
 
@@ -20,7 +20,7 @@ public class GuestModel implements Model{
      * The GuestModel function is a constructor that initializes the board and players variables.
      */
     private GuestModel() {
-        this.board = Board.getBoard();
+        currBoard = new Tile[15][15];
         player = new Player();
         score = 0;
     }
@@ -38,8 +38,8 @@ public class GuestModel implements Model{
         return player;
     }
     @Override
-    public Board getBoard() {
-        return board;
+    public Tile[][] getBoard() {
+        return currBoard;
     }
 
     @Override

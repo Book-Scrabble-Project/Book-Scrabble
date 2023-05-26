@@ -8,11 +8,8 @@ import Scrabble.Model.Components.Word;
 import java.util.List;
 
 public interface Model {
-    /**
-     * The getBoard function returns the current state of the game board.
-     * @return A 2d array of tile objects
-     */
-    Board getBoard();
+    //getBoard
+    Tile[][] getBoard();
 
     /**
      * The getScore function gets the score for a player.

@@ -71,8 +71,8 @@ public class HostModel implements Model {
     }
 
     @Override
-    public Board getBoard() {
-        return board;
+    public Tile[][] getBoard() {
+        return Board.getBoard().getTiles();
     }
 
     @Override
