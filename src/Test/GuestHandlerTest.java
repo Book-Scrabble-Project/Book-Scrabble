@@ -4,13 +4,16 @@ import Scrabble.Model.CommunicationServer.Converter;
 import Scrabble.Model.CommunicationServer.GuestHandler;
 import Scrabble.Model.Components.Tile;
 import Scrabble.Model.Components.Word;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class GuestHandlerTest {
     String test;
@@ -21,8 +24,8 @@ public class GuestHandlerTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        Tile[] tiles = {new Tile('A',2),new Tile('B',5),new Tile('D',9)};
-        Word w = new Word(tiles,4,3,true);
+        Tile[] tiles = {new Tile('A', 2), new Tile('B', 5), new Tile('D', 9)};
+        Word w = new Word(tiles, 4, 3, true);
         wordTest = Converter.wordToString(w);
         test = "query:success:" + wordTest;
         inputStream = new ByteArrayInputStream(test.getBytes());

@@ -1,14 +1,17 @@
 package Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import Scrabble.Model.CommunicationServer.GameServer;
 import Scrabble.Model.CommunicationServer.HostHandler;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.net.Socket;
-import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameServerTest {
 

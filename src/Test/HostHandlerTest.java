@@ -52,8 +52,8 @@ public class HostHandlerTest {
         // Verify that the query is handled in the HostModel
         boolean expectedResponse = true;
         String expectedWord = "word";
-     //   assertEquals(expectedResponse, HostModel.getHostModel().getQueryResponse(), "Query response should match the expected value");
-     //   assertEquals(expectedWord, HostModel.getHostModel().getQueryWord(), "Query word should match the expected value");
+        //   assertEquals(expectedResponse, HostModel.getHostModel().getQueryResponse(), "Query response should match the expected value");
+        //   assertEquals(expectedWord, HostModel.getHostModel().getQueryWord(), "Query word should match the expected value");
     }
 
     @Test
@@ -65,8 +65,8 @@ public class HostHandlerTest {
         // Verify that the challenge is handled in the HostModel
         boolean expectedResponse = false;
         String expectedWord = "word";
-     //   assertEquals(expectedResponse, HostModel.getHostModel().getChallengeResponse(), "Challenge response should match the expected value");
-     //   assertEquals(expectedWord, HostModel.getHostModel().getChallengeWord(), "Challenge word should match the expected value");
+        //   assertEquals(expectedResponse, HostModel.getHostModel().getChallengeResponse(), "Challenge response should match the expected value");
+        //   assertEquals(expectedWord, HostModel.getHostModel().getChallengeWord(), "Challenge word should match the expected value");
     }
 
     @Test
@@ -77,7 +77,7 @@ public class HostHandlerTest {
 
         // Verify that the word is placed on the board in the HostModel
         String expectedWord = "word";
-      //  assertEquals(expectedWord, HostModel.getHostModel().getPlacedWord(), "Placed word should match the expected value");
+        //  assertEquals(expectedWord, HostModel.getHostModel().getPlacedWord(), "Placed word should match the expected value");
     }
 
     @Test

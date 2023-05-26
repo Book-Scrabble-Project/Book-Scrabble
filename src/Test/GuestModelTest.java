@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GuestModelTest {
     private GuestModel guestModel;
@@ -43,8 +41,8 @@ public class GuestModelTest {
 
     @Test
     public void testTryPlaceWord() {
-        Tile[] tiles = {new Tile('A',2),new Tile('B',5),new Tile('D',9)};
-        Word word = new Word(tiles,4,3,true);
+        Tile[] tiles = {new Tile('A', 2), new Tile('B', 5), new Tile('D', 9)};
+        Word word = new Word(tiles, 4, 3, true);
 
         guestModel.tryPlaceWord(word);
 
@@ -54,8 +52,8 @@ public class GuestModelTest {
 
     @Test
     public void testQuery() {
-        Tile[] tiles = {new Tile('A',2),new Tile('B',5),new Tile('D',9)};
-        Word word = new Word(tiles,4,3,true);
+        Tile[] tiles = {new Tile('A', 2), new Tile('B', 5), new Tile('D', 9)};
+        Word word = new Word(tiles, 4, 3, true);
 
         guestModel.query(word);
 
@@ -65,8 +63,8 @@ public class GuestModelTest {
 
     @Test
     public void testChallenge() {
-        Tile[] tiles = {new Tile('A',2),new Tile('B',5),new Tile('D',9)};
-        Word word = new Word(tiles,4,3,true);
+        Tile[] tiles = {new Tile('A', 2), new Tile('B', 5), new Tile('D', 9)};
+        Word word = new Word(tiles, 4, 3, true);
 
         guestModel.challenge(word);
 

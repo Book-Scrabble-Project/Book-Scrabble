@@ -1,10 +1,10 @@
 package Test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import Scrabble.Model.CommunicationServer.Converter;
 import Scrabble.Model.Components.Tile;
 import Scrabble.Model.Components.Word;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
@@ -46,15 +46,15 @@ public class ConverterTest {
 
     @Test
     public void testEndToEndWord() {
-        Tile[] expectedTiles = {new Tile('D',4), new Tile('C',0), new Tile('W',9)};
-        Word expected = new Word(expectedTiles,14,12,true);
+        Tile[] expectedTiles = {new Tile('D', 4), new Tile('C', 0), new Tile('W', 9)};
+        Word expected = new Word(expectedTiles, 14, 12, true);
         String test = Converter.wordToString(expected);
         Word actual = Converter.stringToWord(test);
-        Assertions.assertEquals(expected,actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void testEndToEndTileArrayToString(){
+    public void testEndToEndTileArrayToString() {
         char[] LETTERS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
         int MIN_SCORE = 1;
         int MAX_SCORE = 10;
@@ -72,7 +72,7 @@ public class ConverterTest {
         Tile[][] expected = Converter.stringToTileArray(test);
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                if(expected[i][j].score != actualTiles[i][j].score || expected[i][j].letter != actualTiles[i][j].letter){
+                if (expected[i][j].score != actualTiles[i][j].score || expected[i][j].letter != actualTiles[i][j].letter) {
                     System.out.println("Test Failed!");
                 }
             }
