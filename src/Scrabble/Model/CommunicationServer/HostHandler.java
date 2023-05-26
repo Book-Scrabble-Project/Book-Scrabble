@@ -19,7 +19,6 @@ public class HostHandler implements ClientHandler {
             out = new PrintWriter(outToClient);
             String inputMessage = in.next();
 
-
     }
     public void handleRequest(){
 

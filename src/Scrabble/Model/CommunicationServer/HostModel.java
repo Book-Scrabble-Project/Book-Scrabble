@@ -58,12 +58,16 @@ public class HostModel implements Model {
     public List<Player> getPlayers() {
         return players;
     }
-    public int getCurrentPlayerID() {
+    public int getCurrentPlayerTurnIndex() {
         return currentPlayerTurnIndex;
     }
 
-    public void setCurrentPlayerID(int currentPlayerID) {
-        this.currentPlayerTurnIndex = currentPlayerID;
+    public void setCurrentPlayerTurnIndex(int currentPlayerTurnIndex) {
+        this.currentPlayerTurnIndex = currentPlayerTurnIndex;
+    }
+
+    public void setTurnIndexToNextPlayer(int currentPlayerTurnIndex) {
+        this.currentPlayerTurnIndex = (currentPlayerTurnIndex+1) % players.size();
     }
 
     @Override
