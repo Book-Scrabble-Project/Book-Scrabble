@@ -52,8 +52,8 @@ public class GameServerTest {
 
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
         Scanner in = new Scanner(clientSocket.getInputStream());
+        out.println("welcomeMessage:");
 
-        // out.println("hello!");
         gameServer.broadcast("quitGame:mockPlayer");
         if (in.hasNext()) {
             actualOutput = in.next();

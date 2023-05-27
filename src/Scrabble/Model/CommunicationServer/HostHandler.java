@@ -1,5 +1,6 @@
 package Scrabble.Model.CommunicationServer;
 
+import Scrabble.Model.Components.Player;
 import Scrabble.Model.Server.ClientHandler;
 
 import java.io.InputStream;
@@ -32,6 +33,9 @@ public class HostHandler extends Observable implements ClientHandler {
     public void handleGuestRequest(String message) {
         String[] elements = message.split(":");
         switch (elements[0]) {
+            case ("welcomeMessage:"):
+                HostModel.getHostModel().addPlayer(new Player());
+                break;
             case ("passTurnToNextPlayer"):
                 HostModel.getHostModel().setTurnIndexToNextPlayer(Integer.parseInt(elements[1]));
                 break;
