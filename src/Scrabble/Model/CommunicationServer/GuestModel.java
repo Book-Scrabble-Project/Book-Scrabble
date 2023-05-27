@@ -31,9 +31,9 @@ public class GuestModel implements Model, Observer {
         player = new Player();
         setConnectionToServer(ip, port);
         try {
-         //   guestHandler = new GuestHandler(this.player.getGuestID(), socket.getInputStream(), socket.getOutputStream());
-                guestHandler = new GuestHandler(this.player.getGuestID(),inputStream,outputStream); //for testing
-        } catch (Exception e){
+            //   guestHandler = new GuestHandler(this.player.getGuestID(), socket.getInputStream(), socket.getOutputStream());
+            guestHandler = new GuestHandler(this.player.getGuestID(), inputStream, outputStream); //for testing
+        } catch (Exception e) {
             throw new RuntimeException();
         }
         guestHandler.addObserver(this);

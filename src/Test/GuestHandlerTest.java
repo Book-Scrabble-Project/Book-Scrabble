@@ -30,7 +30,7 @@ public class GuestHandlerTest {
         test = "query:success:" + wordTest;
         inputStream = new ByteArrayInputStream(test.getBytes());
         outputStream = new ByteArrayOutputStream();
-        guestHandler = new GuestHandler("guest1", inputStream,outputStream);
+        guestHandler = new GuestHandler("guest1", inputStream, outputStream);
     }
 
     @AfterEach
@@ -46,7 +46,8 @@ public class GuestHandlerTest {
 
         guestHandler.handleHostMessage(test);
 
-        String expectedMessage = "query:success:" + wordTest;;
+        String expectedMessage = "query:success:" + wordTest;
+        ;
         assertEquals(expectedMessage, observer.getReceivedMessage(), "Observer should receive the expected message");
     }
 
@@ -55,9 +56,9 @@ public class GuestHandlerTest {
         TestObserver observer = new TestObserver();
         guestHandler.addObserver(observer);
 
-        guestHandler.handleHostMessage("challenge:failed:"+wordTest);
+        guestHandler.handleHostMessage("challenge:failed:" + wordTest);
 
-        String expectedMessage = "challenge:failed:"+wordTest;
+        String expectedMessage = "challenge:failed:" + wordTest;
         assertEquals(expectedMessage, observer.getReceivedMessage(), "Observer should receive the expected message");
     }
 
@@ -88,7 +89,7 @@ public class GuestHandlerTest {
     public void testGetMessageFromHost() {
         String message = guestHandler.getMessageFromHost();
 
-        String expectedMessage = "query:success:"+wordTest;
+        String expectedMessage = "query:success:" + wordTest;
         assertEquals(expectedMessage, message, "Received message should match the expected message");
     }
 

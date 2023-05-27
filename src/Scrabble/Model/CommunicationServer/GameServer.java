@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -15,43 +18,42 @@ public class GameServer {
     private int port;
     private ClientHandler clientHandler;
     private volatile boolean stopServer;
+    List<Socket> socketList;
+    ServerSocket server;
     ExecutorService threadPool = Executors.newFixedThreadPool(3);
 
     public GameServer(int port, ClientHandler clientHandler) {
         this.port = port;
         this.clientHandler = clientHandler;
+        socketList = new ArrayList<>();
         this.stopServer = false;
     }
 
-    public void stopServer() {
-        stopServer = true;
-    }
-
-    public void close() {
-        stopServer();
-        threadPool.shutdown();
-    }
-
     private void runServer() throws Exception {
-        ServerSocket server = new ServerSocket(port);
-        while (!stopServer) {
-            try {
-                Socket aClient = server.accept();
-                String guestID = UUID.randomUUID().toString().substring(0, 6); //Generate an unique ID to the Guest.
-                HostModel.getHostModel().addNewGuestToMap(guestID, aClient);
-                threadPool.execute(() -> {
-                    try {
-                        clientHandler.handleClient((aClient.getInputStream()), (aClient.getOutputStream()));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            } catch (IOException e) {
-                throw new RuntimeException();
+        server = new ServerSocket(port);
+        server.setSoTimeout(5000);
+        try {
+            while (!stopServer) {
+                try {
+                    Socket aClient = server.accept();
+                    String guestID = UUID.randomUUID().toString().substring(0, 6); //Generate an unique ID to the Guest.
+                    HostModel.getHostModel().addNewGuestToMap(guestID, aClient);
+                    socketList.add(aClient);
+                    threadPool.execute(() -> {
+                        try {
+                            clientHandler.handleClient((aClient.getInputStream()), (aClient.getOutputStream()));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                } catch (SocketTimeoutException e) {
+                    throw new RuntimeException();
+                }
             }
-        }
-        server.close();
+            server.close();
+        } catch (Exception e) {
 
+        }
     }
 
     public void start() {
@@ -66,7 +68,7 @@ public class GameServer {
 
     public void broadcast(String message) {
         //Send broadcast Message to all the connected players
-        HostModel.getHostModel().getGuestsMapIDtoSocket().forEach((guestID, socket) -> {
+        socketList.forEach((socket) -> {
             PrintWriter out;
             try {
                 out = new PrintWriter(socket.getOutputStream());
@@ -119,6 +121,28 @@ public class GameServer {
                 return true;
             else
                 return false;
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public void stopServer() {
+        stopServer = true;
+    }
+
+    public void close() {
+        stopServer();
+        clientHandler.close();
+        for (Socket socket : socketList) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                throw new RuntimeException();
+            }
+        }
+        threadPool.shutdown();
+        try {
+            server.close();
         } catch (IOException e) {
             throw new RuntimeException();
         }

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameServerTest {
 
     private static final int PORT = 9999;
-    private static final String HOST = "127.0.0.1";
+    private static final String HOST = "localhost";
     private HostHandler hostHandler;
     private GameServer gameServer;
     private Socket clientSocket;
@@ -46,14 +46,20 @@ public class GameServerTest {
 
     @Test
     public void testBroadcast() throws IOException {
-
+        String actualOutput;
         // Mock a connected client
-        clientSocket = new Socket(HOST, PORT);
+        connectClient();
+
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
         Scanner in = new Scanner(clientSocket.getInputStream());
+
         // out.println("hello!");
         gameServer.broadcast("quitGame:mockPlayer");
-        String actualOutput = in.next();
+        if (in.hasNext()) {
+            actualOutput = in.next();
+        } else {
+            actualOutput = "Server didn't responded!";
+        }
         String expectedOutput = "quitGame:mockPlayer\n";
 
         assertEquals(expectedOutput, actualOutput, "Output should match broadcast message");
