@@ -48,4 +48,13 @@ public class Word {
         result = 31 * result + Arrays.hashCode(tiles);
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Tile t : tiles) {
+            sb.append(t.letter);
+        }
+        return sb.toString();
+    }
 }

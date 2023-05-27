@@ -8,7 +8,6 @@ public class Board {
     private static Board t = null;
     private final Tile[][] gameBoard;
     private ArrayList<Word> createdWordsList;
-
     private static final HashMap<String, String> scoreList = new HashMap<>();
 
     private Board() {
