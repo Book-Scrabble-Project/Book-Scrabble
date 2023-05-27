@@ -2,6 +2,7 @@ package Test;
 
 import Scrabble.Model.CommunicationServer.GameServer;
 import Scrabble.Model.CommunicationServer.HostHandler;
+import Scrabble.Model.CommunicationServer.HostModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,21 +10,24 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameServerTest {
 
-    private static final int PORT = 8080;
-    private static final String HOST = "localhost";
-
+    private static final int PORT = 9999;
+    private static final String HOST = "127.0.0.1";
+    private HostHandler hostHandler;
     private GameServer gameServer;
     private Socket clientSocket;
 
     @BeforeEach
     public void setup() {
-        gameServer = new GameServer(PORT, new HostHandler());
+        hostHandler = new HostHandler();
+        gameServer = new GameServer(PORT, hostHandler);
         gameServer.start();
     }
 
@@ -42,16 +46,17 @@ public class GameServerTest {
 
     @Test
     public void testBroadcast() throws IOException {
+
         // Mock a connected client
-        connectClient();
+        clientSocket = new Socket(HOST, PORT);
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
+        Scanner in = new Scanner(clientSocket.getInputStream());
+        // out.println("hello!");
+        gameServer.broadcast("quitGame:mockPlayer");
+        String actualOutput = in.next();
+        String expectedOutput = "quitGame:mockPlayer\n";
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-
-        gameServer.broadcast("Hello, world!");
-
-        String expectedOutput = "Hello, world!\n";
-        assertEquals(expectedOutput, outputStream.toString(), "Output should match broadcast message");
+        assertEquals(expectedOutput, actualOutput, "Output should match broadcast message");
     }
 
     @Test
@@ -62,7 +67,7 @@ public class GameServerTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        String guestID = gameServer.guestsMapIDtoSocket.keySet().iterator().next();
+        String guestID = (String) HostModel.getHostModel().getGuestsMapIDtoSocket().keySet().toArray()[0];
         gameServer.directMessageToGuest(guestID, "Hello, guest!");
 
         String expectedOutput = "Hello, guest!\n";

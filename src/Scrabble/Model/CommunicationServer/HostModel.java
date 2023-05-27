@@ -7,6 +7,7 @@ import Scrabble.Model.Components.Tile;
 import Scrabble.Model.Components.Word;
 import Scrabble.Model.Server.MyServer;
 
+import java.net.Socket;
 import java.util.*;
 
 public class HostModel implements Model {
@@ -16,6 +17,8 @@ public class HostModel implements Model {
     public Board board;
     public Tile.Bag bag;
     public Player player;
+
+    private Map<String, Socket> guestsMapIDtoSocket;
     private Map<Integer, Player> turnIndexToPlayerMap;
     private List<Player> players;
     private HostHandler hostHandler;
@@ -24,7 +27,7 @@ public class HostModel implements Model {
     public int currentPlayerTurnIndex;
     private String bsIP;
     private int bsPort;
-    private final int PORT_NUMBER = 5124;
+    private final int PORT_NUMBER = 9999;
 
     public HostModel() {
         hostHandler = new HostHandler();
@@ -132,6 +135,10 @@ public class HostModel implements Model {
         return players;
     }
 
+    public void addPlayer(Player p) {
+        this.players.add(p);
+    }
+
     public int getCurrentPlayerTurnIndex() {
         return currentPlayerTurnIndex;
     }
@@ -144,6 +151,13 @@ public class HostModel implements Model {
         this.currentPlayerTurnIndex = (currentPlayerTurnIndex + 1) % players.size();
     }
 
+    public Map<String, Socket> getGuestsMapIDtoSocket() {
+        return guestsMapIDtoSocket;
+    }
+
+    public void addNewGuestToMap(String guestID, Socket socket) {
+        this.guestsMapIDtoSocket.put(guestID, socket);
+    }
 
     @Override
     public Tile[][] getBoard() {

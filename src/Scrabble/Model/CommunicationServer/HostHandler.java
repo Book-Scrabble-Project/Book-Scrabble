@@ -22,14 +22,16 @@ public class HostHandler extends Observable implements ClientHandler {
         while (!gameStop) {
             in = new Scanner(inFromclient);
             out = new PrintWriter(outToClient);
-            String inputMessage = in.next();
-            handleGuestRequest(inputMessage);
+            if (in.hasNext()) {
+                String inputMessage = in.next();
+                handleGuestRequest(inputMessage);
+            }
         }
     }
 
     public void handleGuestRequest(String message) {
         String[] elements = message.split(":");
-        switch (message) {
+        switch (elements[0]) {
             case ("passTurnToNextPlayer"):
                 HostModel.getHostModel().setTurnIndexToNextPlayer(Integer.parseInt(elements[1]));
                 break;

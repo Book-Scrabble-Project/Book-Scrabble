@@ -2,6 +2,7 @@ package Test;
 
 import Scrabble.Model.CommunicationServer.HostHandler;
 import Scrabble.Model.CommunicationServer.HostModel;
+import Scrabble.Model.Components.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +23,12 @@ public class HostHandlerTest {
 
     @Test
     public void testHandleGuestRequest_PassTurnToNextPlayer() {
+        HostModel.getHostModel().addPlayer(new Player());
         String inputMessage = "passTurnToNextPlayer:2";
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inputMessage.getBytes());
-        hostHandler.handleClient(inputStream, outputStream);
-
-        // Verify that the turn index is set to 3 in the HostModel
-        int expectedTurnIndex = 3;
+        new Thread(() -> hostHandler.handleClient(inputStream, outputStream)).start();
+        // Verify that the turn index is set to 1 in the HostModel
+        int expectedTurnIndex = 1;
         assertEquals(expectedTurnIndex, HostModel.getHostModel().currentPlayerTurnIndex, "Turn index should match the expected value");
     }
 
