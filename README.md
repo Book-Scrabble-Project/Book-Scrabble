@@ -63,5 +63,5 @@ Our team utilizes various communication and reporting channels to ensure smooth 
 
 
 ## Gant and Work Division
-![image](https://github.com/Book-Scrabble-Project/Book-Scrabble/assets/68278696/f8c91d4f-4db3-4648-8194-127c9e724456)
+![image](https://github.com/Book-Scrabble-Project/Book-Scrabble/assets/68278696/5f32050d-5dd7-4b6b-bf2d-672ce511e423)
 
